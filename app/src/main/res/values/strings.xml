@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Chillout-Delivery</string>
+
+    <string name="privacy">
+    * By clicking, I accept the
+        <font color='#FF5722'><b>Terms of Service</b></font>
+    and
+        <font color='#FF5722'><b>Privacy Policy</b></font>
+</string>
+
+    <string name="resend_text">Didn\'t receive code? <font color='#FF5722'><b>Resend</b></font></string>
+
+    <string name="startPickup">Start Pickup</string>
+    <string name="markPicked">Mark as Picked up</string>
+    <string name="markDestination">Mark as Destination Reached</string>
+    <string name="markDelivery">Mark as Delivered</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

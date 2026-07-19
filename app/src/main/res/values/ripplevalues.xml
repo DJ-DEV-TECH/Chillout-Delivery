@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="rippleValueCentered">true</bool>
+
+    <color name="rippleValueColor_white">@color/white</color>
+    <color name="rippleValueColor_pink">@color/ripple_color_pink</color>
+    <color name="rippleValueColor_blue">@color/main_start_grad</color>
+
+    <integer name="rippleValueDuration">200</integer>
+    <bool name="rippleValueZoom">true</bool>
+    <integer name="rippleValueZoomDuration">500</integer>
+
+
+</resources>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginTop="12dp"
+    app:cardCornerRadius="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/shopImg"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/chillout_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/centerLinear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintStart_toEndOf="@id/shopImg"
+                app:layout_constraintEnd_toStartOf="@+id/kmLinear"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chillout Spot"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category : Food"
+                    android:textColor="@color/purple"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="37, Pattalathar Street, Amman nagar, Komarapalayam, Amman nagar, Komarapalayam"
+                    android:textSize="11sp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/kmLinear"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/purple"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.2 KM"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/dotted"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/topConstraint"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/view1">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userImg"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/userCenterLinear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintStart_toEndOf="@id/userImg"
+                app:layout_constraintEnd_toStartOf="@+id/durationLinear"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="JK"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="37, Pattalathar Street, Amman nagar, Komarapalayam, Amman nagar, Komarapalayam"
+                    android:textSize="11sp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/durationLinear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/duration"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12 Mins"
+                    android:textColor="@color/purple"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/trackBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TRACK"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_rounded_rect_20"
+            android:backgroundTint="@color/orange"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/bottomConstraint"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/buttonLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/bottomConstraint">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Accept"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_rounded_rect_20"
+                android:backgroundTint="@color/green"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reject"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_rounded_rect_20"
+                android:backgroundTint="@color/grey_1"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
