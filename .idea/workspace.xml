@@ -202,7 +202,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11a08e09-2111-4a89-a191-1b17fe299d0a" name="Changes" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +286,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "test-jk",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/jagathees/Jaga/DJ Projects/Android Projects/NewChillOut/Chillout-Delivery/app/src/main/java/com/app/chillout_delivery"
   }
 }]]></component>
@@ -441,7 +441,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784431112366</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1784535776143</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1784535776143</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -464,12 +472,12 @@
       <map>
         <entry key="com.app.chillout_delivery">
           <value>
-            <CheckInfo lastCheckTimestamp="1784357365589" />
+            <CheckInfo lastCheckTimestamp="1784535745403" />
           </value>
         </entry>
         <entry key="com.app.chillout_delivery.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1784357365590" />
+            <CheckInfo lastCheckTimestamp="1784535745408" />
           </value>
         </entry>
       </map>
