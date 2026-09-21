@@ -22,7 +22,9 @@
                 android:id="@+id/userImg"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/vijay_image"
+                android:src="@drawable/ic_profile_final"
+                app:civ_border_color="@color/red"
+                app:civ_border_width="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>

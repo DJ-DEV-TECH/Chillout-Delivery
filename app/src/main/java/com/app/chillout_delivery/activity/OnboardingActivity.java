@@ -7,7 +7,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -15,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.app.chillout_delivery.R;
 import com.app.chillout_delivery.adapter.IntroViewPagerAdapter;
+import com.app.chillout_delivery.base.BaseActivity;
 import com.app.chillout_delivery.databinding.ActivityOnboardingBinding;
 import com.app.chillout_delivery.model.OnboardingItem;
 import com.app.chillout_delivery.utils.PrefsHelper;
@@ -23,7 +23,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OnboardingActivity extends AppCompatActivity {
+public class OnboardingActivity extends BaseActivity {
 
     private ActivityOnboardingBinding binding;
     private IntroViewPagerAdapter introViewPagerAdapter;
@@ -43,11 +43,14 @@ public class OnboardingActivity extends AppCompatActivity {
             return insets;
         });
 
-        System.out.println("Check-JK SharedPref : "+restorePrefData());
-
         if (restorePrefData()) {
-            Intent mainActivity = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(mainActivity);
+            Intent intent;
+            if (prefsHelper.getUser() != null) {
+                intent = new Intent(getApplicationContext(), HomeActivity.class);
+            } else {
+                intent = new Intent(getApplicationContext(), LoginActivity.class);
+            }
+            startActivity(intent);
             finish();
         }
 
@@ -88,10 +91,11 @@ public class OnboardingActivity extends AppCompatActivity {
 
         binding.btnSkip.setOnClickListener(view -> {
             binding.onboardingViewPager.setCurrentItem(mList.size());
+            loadLastScreen();
         });
 
         binding.btnGetStarted.setOnClickListener(view -> {
-            Intent mainActivity = new Intent(getApplicationContext(), HomeActivity.class);
+            Intent mainActivity = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(mainActivity);
             savePrefsData();
             finish();

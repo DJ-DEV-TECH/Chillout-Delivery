@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "522458753808",
+    "project_id": "chillout-2c199",
+    "storage_bucket": "chillout-2c199.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522458753808:android:179e87579a2fa05c609395",
+        "android_client_info": {
+          "package_name": "com.app.chillout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKmi5Eyv_fggq7yzGRyt0HkH0dDLFlqeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522458753808:android:2f13e68b31085167609395",
+        "android_client_info": {
+          "package_name": "com.app.chillout_delivery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKmi5Eyv_fggq7yzGRyt0HkH0dDLFlqeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522458753808:android:07977f0f0683e963609395",
+        "android_client_info": {
+          "package_name": "com.chillout.foodapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKmi5Eyv_fggq7yzGRyt0HkH0dDLFlqeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

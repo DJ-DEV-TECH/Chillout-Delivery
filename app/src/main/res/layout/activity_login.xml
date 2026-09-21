@@ -17,9 +17,11 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loginConstraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/vectorImg">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -72,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter mobile number"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:inputType="phone"
                 android:maxLength="10"
                 android:padding="16dp"
@@ -153,115 +155,268 @@
                 android:layout_marginTop="12dp"
                 app:layout_constraintTop_toBottomOf="@+id/mobileLinear"/>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lineLinear"
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/otpConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/vectorImg"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/otpTxtLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:gravity="center"
-                app:layout_constraintBottom_toTopOf="@+id/socialLoginLinear">
+                android:text="Login to your account"
+                android:textSize="28sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginEnd="120dp"/>
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dp"
-                    android:layout_weight="1"
-                    android:background="@color/grey_2"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please sign in to your account"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Or sign in with"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dp"
-                    android:layout_weight="1"
-                    android:background="@color/grey_2"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/otpMobileLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/otpTxtLinear">
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/socialLoginLinear"
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textSize="12sp"/>
+
+            <com.ozcanalasalvar.otp_view.view.OtpView
+                android:id="@+id/otpView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:digits="6"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:keyboardType="number"
+                app:activeColor="@color/white"
+                app:autoFocusEnabled="false"
+                app:passiveColor="@color/greyFinal"
+                app:textColor="@color/red"
+                app:textSize="20"
+                android:translationZ="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="7dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/resendTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend_text"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/timerLinear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:gravity="center"
-                android:weightSum="3"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="18dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:layout_gravity="center">
 
-                <com.app.chillout_delivery.utils.RippleView
-                    android:id="@+id/googleBtn"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_weight="1"
-                    android:splitMotionEvents="false"
-                    app:rv_centered="@bool/rippleValueCentered"
-                    app:rv_color="@color/rippleValueColor_pink"
-                    app:rv_rippleDuration="@integer/rippleValueDuration"
-                    app:rv_type="simpleRipple"
-                    app:rv_zoom="@bool/rippleValueZoom"
-                    app:rv_zoomDuration="@integer/rippleValueZoomDuration">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@drawable/ic_clock"/>
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/google"/>
-
-                </com.app.chillout_delivery.utils.RippleView>
-
-                <com.app.chillout_delivery.utils.RippleView
-                    android:id="@+id/fbBtn"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:splitMotionEvents="false"
-                    app:rv_centered="@bool/rippleValueCentered"
-                    app:rv_color="@color/rippleValueColor_pink"
-                    app:rv_rippleDuration="@integer/rippleValueDuration"
-                    app:rv_type="simpleRipple"
-                    app:rv_zoom="@bool/rippleValueZoom"
-                    app:rv_zoomDuration="@integer/rippleValueZoomDuration">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        app:srcCompat="@drawable/facebook"/>
-
-                </com.app.chillout_delivery.utils.RippleView>
-
-                <com.app.chillout_delivery.utils.RippleView
-                    android:id="@+id/watsappBtn"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:splitMotionEvents="false"
-                    app:rv_centered="@bool/rippleValueCentered"
-                    app:rv_color="@color/rippleValueColor_pink"
-                    app:rv_rippleDuration="@integer/rippleValueDuration"
-                    app:rv_type="simpleRipple"
-                    app:rv_zoom="@bool/rippleValueZoom"
-                    app:rv_zoomDuration="@integer/rippleValueZoomDuration">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        app:srcCompat="@drawable/ios"/>
-
-                </com.app.chillout_delivery.utils.RippleView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/timerTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:layout_marginStart="6dp"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/otpMobileLinear">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/privacy"
+                android:textSize="11sp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+
+            <com.app.chillout_delivery.utils.RippleView
+                android:id="@+id/rippleVerifyOtpBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:splitMotionEvents="false"
+                app:rv_centered="@bool/rippleValueCentered"
+                app:rv_color="@color/rippleValueColor_pink"
+                app:rv_rippleDuration="@integer/rippleValueDuration"
+                app:rv_type="simpleRipple"
+                app:rv_zoom="@bool/rippleValueZoom"
+                app:rv_zoomDuration="@integer/rippleValueZoomDuration"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/mobileLinear">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/verifyOtpBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Send OTP"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_button_gradient_24" />
+
+            </com.app.chillout_delivery.utils.RippleView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/otpLineLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/socialLoginLinear">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/grey_2"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Or sign in with"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/grey_2"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/socialLoginLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="3"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.app.chillout_delivery.utils.RippleView
+            android:id="@+id/googleBtn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:splitMotionEvents="false"
+            app:rv_centered="@bool/rippleValueCentered"
+            app:rv_color="@color/rippleValueColor_pink"
+            app:rv_rippleDuration="@integer/rippleValueDuration"
+            app:rv_type="simpleRipple"
+            app:rv_zoom="@bool/rippleValueZoom"
+            app:rv_zoomDuration="@integer/rippleValueZoomDuration">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/google"/>
+
+        </com.app.chillout_delivery.utils.RippleView>
+
+        <com.app.chillout_delivery.utils.RippleView
+            android:id="@+id/fbBtn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:splitMotionEvents="false"
+            app:rv_centered="@bool/rippleValueCentered"
+            app:rv_color="@color/rippleValueColor_pink"
+            app:rv_rippleDuration="@integer/rippleValueDuration"
+            app:rv_type="simpleRipple"
+            app:rv_zoom="@bool/rippleValueZoom"
+            app:rv_zoomDuration="@integer/rippleValueZoomDuration">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/facebook"/>
+
+        </com.app.chillout_delivery.utils.RippleView>
+
+        <com.app.chillout_delivery.utils.RippleView
+            android:id="@+id/watsappBtn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:splitMotionEvents="false"
+            app:rv_centered="@bool/rippleValueCentered"
+            app:rv_color="@color/rippleValueColor_pink"
+            app:rv_rippleDuration="@integer/rippleValueDuration"
+            app:rv_type="simpleRipple"
+            app:rv_zoom="@bool/rippleValueZoom"
+            app:rv_zoomDuration="@integer/rippleValueZoomDuration">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/ios"/>
+
+        </com.app.chillout_delivery.utils.RippleView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

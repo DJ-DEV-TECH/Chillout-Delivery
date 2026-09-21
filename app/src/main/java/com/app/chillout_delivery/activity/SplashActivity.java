@@ -6,15 +6,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.app.chillout_delivery.R;
+import com.app.chillout_delivery.base.BaseActivity;
 import com.app.chillout_delivery.databinding.ActivitySplashBinding;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private ActivitySplashBinding binding;
 

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
 
     <application
         android:name=".ChillOutApplication"
@@ -15,9 +13,11 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ChilloutDelivery" >
+        android:theme="@style/Theme.ChilloutDelivery"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.TestingActivity"
             android:exported="false" />
@@ -26,7 +26,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,7 +56,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
 
             <!--
             <intent-filter>
@@ -70,6 +70,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBRcTL0kqdN1xpQzW2Kq4zr5nm6veWAek8" />
+
+        <service
+            android:name=".service.SocketService"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.WebviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

@@ -2,9 +2,11 @@ package com.app.chillout_delivery.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.CompoundButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,8 +22,22 @@ import com.app.chillout_delivery.fragment.HomeFragment;
 import com.app.chillout_delivery.fragment.PendingOrderFragment;
 import com.app.chillout_delivery.fragment.ProfileFragment;
 import com.app.chillout_delivery.fragment.WalletFragment;
+import com.app.chillout_delivery.listener.OrderReceivedListener;
+import com.app.chillout_delivery.model.DeliveryBoyStatusRequest;
+import com.app.chillout_delivery.model.UserResponseModel;
+import com.app.chillout_delivery.retrofit.ApiClient;
+import com.app.chillout_delivery.retrofit.ApiService;
+import com.app.chillout_delivery.utils.PrefsHelper;
+import com.app.chillout_delivery.utils.SocketManager;
+import com.app.chillout_delivery.utils.Utils;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
-public class HomeActivity extends BaseActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class HomeActivity extends BaseActivity implements OrderReceivedListener {
 
     private ActivityHomeBinding binding;
 
@@ -37,11 +53,25 @@ public class HomeActivity extends BaseActivity {
             return insets;
         });
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.greyFinal));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.grey10));
 
+        socketManager = new SocketManager(this);
+        socketManager.connectSocket();
         binding.notifyImg.setOnClickListener(v -> {
             Intent i = new Intent(this, OrderDetailsActivity.class);
             startActivity(i);
+        });
+
+        binding.statusSwitch.setChecked((status == 1));
+
+        binding.statusSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DeliveryBoyStatusRequest request = new DeliveryBoyStatusRequest();
+            if (isChecked) {
+                request.setStatus(1);
+            } else {
+                request.setStatus(0);
+            }
+            callStatusApi(request);
         });
 
         // Load HomeFragment by default
@@ -56,7 +86,7 @@ public class HomeActivity extends BaseActivity {
             } else if (itemId == R.id.nav_wallet) {
                 selectedFragment = new WalletFragment();
             } else if (itemId == R.id.nav_history) {
-                selectedFragment = new PendingOrderFragment();
+                selectedFragment = new HistoryFragment();
             } else if (itemId == R.id.nav_profile) {
                 selectedFragment = new ProfileFragment();
             }
@@ -78,5 +108,41 @@ public class HomeActivity extends BaseActivity {
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+    }
+
+    @Override
+    public void onOrderReceived() {
+        playSound(this);
+    }
+
+    private void callStatusApi(DeliveryBoyStatusRequest status) {
+        showLoading();
+        Call<JsonElement> call = apiService.updateStatus(Utils.getAuthToken(authToken), status);
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                closeLoading();
+                if (response.isSuccessful()) {
+                    prefsHelper.updateUserStatus(status.getStatus());
+                    Intent intent = new Intent(STATUS_EVENT);
+                    intent.setPackage(getPackageName());
+                    intent.putExtra("status", status.getStatus());
+                    sendBroadcast(intent);
+                    Log.d("API", "Success: " + status);
+                } else {
+                    try {
+                        String error = response.errorBody().string();
+                        Log.e("API_ERROR", error);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+                Log.e("API", "Error: " + t.getMessage());
+            }
+        });
     }
 }

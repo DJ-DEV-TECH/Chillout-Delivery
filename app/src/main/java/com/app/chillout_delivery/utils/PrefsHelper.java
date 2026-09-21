@@ -3,6 +3,9 @@ package com.app.chillout_delivery.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.app.chillout_delivery.model.UserResponseModel;
+import com.google.gson.Gson;
+
 public class PrefsHelper {
 
     private static final String PREF_NAME = "ChillOutDelivery";
@@ -10,7 +13,7 @@ public class PrefsHelper {
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
 
-    private PrefsHelper(Context context) {
+    public PrefsHelper(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
@@ -43,5 +46,27 @@ public class PrefsHelper {
     public static void clearAll(Context context) {
         editor.clear();
         editor.apply();
+    }
+
+    public void saveUser(UserResponseModel.Data model) {
+        String json = new Gson().toJson(model); // 🔥 convert object to JSON
+        editor.putString("USER_DATA", json);
+        editor.apply();
+    }
+
+    public UserResponseModel.Data getUser() {
+        String json = sharedPreferences.getString("USER_DATA", null);
+        if (json != null) {
+            return new Gson().fromJson(json, UserResponseModel.Data.class);
+        }
+        return null;
+    }
+
+    public void updateUserStatus(int status) {
+        UserResponseModel.Data user = getUser();
+        if (user != null) {
+            user.setStatus(status);
+            saveUser(user); // 🔥 reuse existing method
+        }
     }
 }

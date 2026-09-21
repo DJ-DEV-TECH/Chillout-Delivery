@@ -36,9 +36,7 @@
                         android:id="@+id/profileImg"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/vijay_image"
-                        app:civ_border_color="@color/orange"
-                        app:civ_border_width="4dp" />
+                        android:src="@drawable/ic_profile_final" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/cart_badge"
@@ -136,12 +134,15 @@
                         app:layout_constraintTop_toBottomOf="@+id/profileMbleTxt">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            app:srcCompat="@drawable/ic_mobile"
+                            android:id="@+id/onlineImg"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:background="@drawable/bg_circle"
+                            android:backgroundTint="@color/green"
                             android:layout_gravity="center"/>
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/statusTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Online"
@@ -149,7 +150,7 @@
                             android:textColor="@color/green"
                             android:textStyle="bold"
                             android:layout_gravity="center"
-                            android:layout_marginStart="8dp"/>
+                            android:layout_marginStart="4dp"/>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -370,7 +371,7 @@
                                 android:textSize="11sp" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/addressTxt"
+                                android:id="@+id/emailTxt"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="test@mail.com"
@@ -568,7 +569,7 @@
                             android:id="@+id/helpIconImg"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            app:srcCompat="@drawable/ic_profile"
+                            app:srcCompat="@drawable/ic_support"
                             android:layout_gravity="center"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -623,7 +624,7 @@
                             android:id="@+id/privacyIconImg"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            app:srcCompat="@drawable/ic_profile"
+                            app:srcCompat="@drawable/ic_privacy"
                             android:layout_gravity="center"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
