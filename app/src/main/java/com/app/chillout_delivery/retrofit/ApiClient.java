@@ -11,13 +11,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://64.227.190.95:8088/chillout-delivery/api/delivery-boy/";
+    private static final String BASE_URL = "http://139.59.59.101:9013/api/delivery-boy/";
 
     private static final OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
             .connectTimeout(20, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(new AuthInterceptor(ChillOutApplication.getInstance()))
+//            .addInterceptor(new AuthInterceptor(ChillOutApplication.getInstance()))
             .addInterceptor(provideHttpLoggingInterceptor())
             .build();
 

@@ -25,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
     public SocketManager socketManager;
     public PrefsHelper prefsHelper;
     public ApiService apiService;
+    public long userId = 0;
     public String name = "";
     public String mobile = "";
     public String email = "";
@@ -39,6 +40,7 @@ public class BaseActivity extends AppCompatActivity {
         apiService = ApiClient.getLoginApiClient().create(ApiService.class);
         loadingDialogFragment = new LoadingDialogFragment();
 //        chooseImageDialogFragment = new ChooseImageDialogFragment();
+        userId = ChillOutApplication.getInstance().getUserId();
         name = ChillOutApplication.getInstance().getUserName();
         mobile = ChillOutApplication.getInstance().getMobile();
         email = ChillOutApplication.getInstance().getEmail();

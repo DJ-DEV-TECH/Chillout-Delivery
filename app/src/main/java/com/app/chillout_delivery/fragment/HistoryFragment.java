@@ -65,6 +65,13 @@ public class HistoryFragment extends BaseFragment implements OrderListener {
             }
         }).attach();*/
 
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            page = 0;
+            orderList.clear();
+            adapter.notifyDataSetChanged();
+            loadOrders();
+        });
+
         // shimmer start
         binding.itemsShimmerLayout.startShimmer();
 
@@ -102,6 +109,7 @@ public class HistoryFragment extends BaseFragment implements OrderListener {
             @Override
             public void onResponse(Call<OrderPageResponse> call, Response<OrderPageResponse> response) {
                 isLoading = false;
+                binding.swipeRefresh.setRefreshing(false);
                 binding.itemsShimmerLayout.stopShimmer();
                 binding.itemsShimmerLayout.setVisibility(View.GONE);
                 binding.orderRecycler.setVisibility(View.VISIBLE);

@@ -1,12 +1,13 @@
 package com.app.chillout_delivery.activity;
 
-import android.content.Intent;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.CompoundButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,15 +20,13 @@ import com.app.chillout_delivery.base.BaseActivity;
 import com.app.chillout_delivery.databinding.ActivityHomeBinding;
 import com.app.chillout_delivery.fragment.HistoryFragment;
 import com.app.chillout_delivery.fragment.HomeFragment;
-import com.app.chillout_delivery.fragment.PendingOrderFragment;
 import com.app.chillout_delivery.fragment.ProfileFragment;
 import com.app.chillout_delivery.fragment.WalletFragment;
 import com.app.chillout_delivery.listener.OrderReceivedListener;
 import com.app.chillout_delivery.model.DeliveryBoyStatusRequest;
-import com.app.chillout_delivery.model.UserResponseModel;
-import com.app.chillout_delivery.retrofit.ApiClient;
-import com.app.chillout_delivery.retrofit.ApiService;
-import com.app.chillout_delivery.utils.PrefsHelper;
+import com.app.chillout_delivery.model.EventModel;
+import com.app.chillout_delivery.model.OrderResponse;
+import com.app.chillout_delivery.utils.EventManager;
 import com.app.chillout_delivery.utils.SocketManager;
 import com.app.chillout_delivery.utils.Utils;
 import com.google.gson.Gson;
@@ -55,12 +54,22 @@ public class HomeActivity extends BaseActivity implements OrderReceivedListener 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.grey10));
 
-        socketManager = new SocketManager(this);
-        socketManager.connectSocket();
+        getOrderEvent();
+//        socketManager = new SocketManager(this);
+//        socketManager.connectSocket();
         binding.notifyImg.setOnClickListener(v -> {
-            Intent i = new Intent(this, OrderDetailsActivity.class);
-            startActivity(i);
+
         });
+
+        if (status == 0 || status == 1) {
+            binding.statusSwitch.setVisibility(VISIBLE);
+            binding.deliveryLottie.setVisibility(GONE);
+            binding.deliveryLottie.pauseAnimation();
+        } else {
+            binding.statusSwitch.setVisibility(GONE);
+            binding.deliveryLottie.setVisibility(VISIBLE);
+            binding.deliveryLottie.playAnimation();
+        }
 
         binding.statusSwitch.setChecked((status == 1));
 
@@ -124,10 +133,9 @@ public class HomeActivity extends BaseActivity implements OrderReceivedListener 
                 closeLoading();
                 if (response.isSuccessful()) {
                     prefsHelper.updateUserStatus(status.getStatus());
-                    Intent intent = new Intent(STATUS_EVENT);
-                    intent.setPackage(getPackageName());
-                    intent.putExtra("status", status.getStatus());
-                    sendBroadcast(intent);
+                    binding.statusSwitch.setChecked(status.getStatus() == 1);
+                    EventManager.getInstance().sendEvent(
+                            new EventModel("USER_STATUS", "", ""+status.getStatus()));
                     Log.d("API", "Success: " + status);
                 } else {
                     try {
@@ -142,6 +150,25 @@ public class HomeActivity extends BaseActivity implements OrderReceivedListener 
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
                 Log.e("API", "Error: " + t.getMessage());
+            }
+        });
+    }
+
+    private void getOrderEvent() {
+        EventManager.getInstance().getEvents().observe(this, event -> {
+            if (event == null) return;
+            if (event.type.equals("USER_STATUS")) {
+                String activeStatus = event.status;
+                if (activeStatus.equals("0") || activeStatus.equals("1")) {
+                    binding.statusSwitch.setVisibility(VISIBLE);
+                    binding.statusSwitch.setChecked(activeStatus.equalsIgnoreCase("1"));
+                    binding.deliveryLottie.setVisibility(GONE);
+                    binding.deliveryLottie.pauseAnimation();
+                } else {
+                    binding.statusSwitch.setVisibility(GONE);
+                    binding.deliveryLottie.setVisibility(VISIBLE);
+                    binding.deliveryLottie.playAnimation();
+                }
             }
         });
     }

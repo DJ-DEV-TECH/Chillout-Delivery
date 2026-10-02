@@ -38,6 +38,7 @@ public class UserResponseModel {
         private String gender;
         private String deviceToken;
         private int status;
+        private boolean isExists = false;
         private boolean isActive;
         private boolean isBlocked;
         private String authToken;
@@ -104,6 +105,14 @@ public class UserResponseModel {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+
+        public boolean isExists() {
+            return isExists;
+        }
+
+        public void setExists(boolean exists) {
+            isExists = exists;
         }
 
         public boolean isActive() {

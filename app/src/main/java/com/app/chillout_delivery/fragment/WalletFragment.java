@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.chillout_delivery.R;
 import com.app.chillout_delivery.adapter.HistoryAdapter;
 import com.app.chillout_delivery.base.BaseFragment;
 import com.app.chillout_delivery.bottomsheetdialog.OrderDetailsListFragment;
@@ -51,11 +53,22 @@ public class WalletFragment extends BaseFragment implements OrderListener {
         // shimmer start
         binding.itemsShimmerLayout.startShimmer();
 
+        binding.viewMoreLinear.setOnClickListener(v -> {
+            loadFragment(HistoryFragment.newInstance());
+        });
+
         setupRecycler();
         loadDashboard();
         loadOrders();
 
         return binding.getRoot();
+    }
+
+    private void loadFragment(Fragment fragment) {
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
     }
 
     private void setupRecycler() {

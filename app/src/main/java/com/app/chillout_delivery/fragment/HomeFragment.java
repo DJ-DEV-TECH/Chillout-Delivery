@@ -1,9 +1,9 @@
 package com.app.chillout_delivery.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,15 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.app.chillout_delivery.R;
+import com.app.chillout_delivery.activity.OrderDetailsActivity;
 import com.app.chillout_delivery.adapter.OrdersAdapter;
 import com.app.chillout_delivery.base.BaseFragment;
 import com.app.chillout_delivery.databinding.FragmentHomeBinding;
-import com.app.chillout_delivery.model.OrderModel;
+import com.app.chillout_delivery.listener.OrderStatusListener;
 import com.app.chillout_delivery.model.OrderPageResponse;
 import com.app.chillout_delivery.model.OrderResponse;
-import com.app.chillout_delivery.retrofit.ApiClient;
-import com.app.chillout_delivery.retrofit.ApiService;
+import com.app.chillout_delivery.utils.EventManager;
 import com.app.chillout_delivery.utils.Utils;
 import com.google.gson.Gson;
 
@@ -30,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements OrderStatusListener {
 
     private FragmentHomeBinding binding;
     private OrdersAdapter adapter;
@@ -59,6 +58,14 @@ public class HomeFragment extends BaseFragment {
         // shimmer start
         binding.itemsShimmerLayout.startShimmer();
 
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            page = 0;
+            orderList.clear();
+            adapter.notifyDataSetChanged();
+            loadOrders();
+        });
+
+        getOrderEvent();
         setupRecycler();
         loadOrders();
 
@@ -66,7 +73,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void setupRecycler() {
-        adapter = new OrdersAdapter(getActivity(), orderList);
+        adapter = new OrdersAdapter(getActivity(), orderList, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.orderRecycler.setLayoutManager(layoutManager);
         binding.orderRecycler.setAdapter(adapter);
@@ -93,6 +100,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onResponse(Call<OrderPageResponse> call, Response<OrderPageResponse> response) {
                 isLoading = false;
+                binding.swipeRefresh.setRefreshing(false);
                 binding.itemsShimmerLayout.stopShimmer();
                 binding.itemsShimmerLayout.setVisibility(View.GONE);
                 binding.orderRecycler.setVisibility(View.VISIBLE);
@@ -112,6 +120,29 @@ public class HomeFragment extends BaseFragment {
             public void onFailure(Call<OrderPageResponse> call, Throwable t) {
                 isLoading = false;
                 t.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void onOrderStatusUpdate(String type, OrderResponse orderResponse) {
+
+    }
+
+    @Override
+    public void onOrderTrack(OrderResponse orderResponse) {
+        Intent i = new Intent(requireContext(), OrderDetailsActivity.class);
+        i.putExtra("orderId", orderResponse.getOrderId());
+        startActivity(i);
+    }
+
+    private void getOrderEvent() {
+        EventManager.getInstance().getEvents().observe(getViewLifecycleOwner(), event -> {
+            if (event == null) return;
+            switch (event.type) {
+                case "ORDER_UPDATE":
+                    OrderResponse orderResponse = new Gson().fromJson(event.data, OrderResponse.class);
+                    break;
             }
         });
     }

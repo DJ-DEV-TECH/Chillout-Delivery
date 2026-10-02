@@ -20,13 +20,12 @@ import com.app.chillout_delivery.base.BaseActivity;
 import com.app.chillout_delivery.databinding.ActivityLoginBinding;
 import com.app.chillout_delivery.model.UserModel;
 import com.app.chillout_delivery.model.UserResponseModel;
-import com.app.chillout_delivery.retrofit.ApiClient;
-import com.app.chillout_delivery.retrofit.ApiService;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
@@ -77,6 +76,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
 
         binding.resendTxt.setOnClickListener(v -> {
+            binding.otpView.requestFocus();
+            otpValue = "";
+
             showLoading();
             countDown();
             mobileNumber = binding.edMbleNum.getText().toString().trim();
@@ -123,6 +125,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     prefsHelper.saveUser(userResponseModel.getData());
                     Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(i);
+                    finish();
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -155,12 +158,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 @Override
                 public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
                     // Auto verification or instant verification
+                    closeLoading();
                     System.out.println("Check_JK onVerificationCompleted smsCode: "+credential.getSmsCode());
                     signInWithCredential(credential);
                 }
 
                 @Override
                 public void onVerificationFailed(@NonNull FirebaseException e) {
+                    closeLoading();
                     System.out.println("Check_JK onVerificationFailed : "+e.getMessage());
                     Toast.makeText(LoginActivity.this, "Verification failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -189,7 +194,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     if (task.isSuccessful()) {
                         UserModel userModel = new UserModel();
                         userModel.setMobile(mobileNumber);
-                        userModel.setDevice_token(ChillOutApplication.FCM_TOKEN);
+                        userModel.setDeviceToken(ChillOutApplication.FCM_TOKEN);
                         loadLogin(userModel);
                     } else {
                         Toast.makeText(this, "Verification failed", Toast.LENGTH_SHORT).show();
@@ -215,12 +220,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     public void countDown() {
+        binding.resendTxt.setEnabled(false);
         binding.resendTxt.setAlpha(0.5f);
         // 🛑 Stop previous timer
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
-        countDownTimer = new CountDownTimer(30000, 1000) {
+        countDownTimer = new CountDownTimer(120000, 1000) {
             public void onTick(long millisUntilFinished) {
                 int seconds = (int) (millisUntilFinished / 1000);
                 int minutes = seconds / 60;

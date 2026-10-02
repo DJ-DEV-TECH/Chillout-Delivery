@@ -2,6 +2,7 @@ package com.app.chillout_delivery.retrofit;
 
 import com.app.chillout_delivery.model.DeliveryBoyStatusRequest;
 import com.app.chillout_delivery.model.DeliveryDashboard;
+import com.app.chillout_delivery.model.OrderModelData;
 import com.app.chillout_delivery.model.OrderPageResponse;
 import com.app.chillout_delivery.model.UserModel;
 import com.app.chillout_delivery.model.UserResponseModel;
@@ -9,8 +10,6 @@ import com.google.gson.JsonElement;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -35,6 +34,14 @@ public interface ApiService {
                                    @Path("orderId") String orderId,
                                    @Path("status") String status);
 
+    @POST("orders/{orderId}/pick")
+    Call<OrderModelData> orderPicked(@Header("Authorization") String token,
+                                   @Path("orderId") String orderId);
+
+    @POST("orders/{orderId}/deliver")
+    Call<OrderModelData> orderDelivered(@Header("Authorization") String token,
+                                   @Path("orderId") String orderId);
+
     @POST("orders/getHistory")
     Call<OrderPageResponse> getOrders(
             @Header("Authorization") String token,
@@ -46,5 +53,10 @@ public interface ApiService {
     Call<DeliveryDashboard> getDashboard(
             @Header("Authorization") String token
     );
+
+    @GET("get-order-details/{orderId}")
+    Call<OrderModelData> getOrderDetails(@Header("Authorization") String token,
+                                         @Path("orderId") String orderId,
+                                         @Query("id") Long id);
 
 }

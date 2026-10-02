@@ -75,11 +75,18 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter mobile number"
                 android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:inputType="phone"
                 android:maxLength="10"
                 android:padding="16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textCursorDrawable="@null"
+                android:cursorVisible="true"
                 android:background="@drawable/bg_stroke_grey_12"
                 android:layout_marginTop="16dp"/>
+            <requestFocus/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -224,13 +231,14 @@
                 android:focusableInTouchMode="true"
                 app:keyboardType="number"
                 app:activeColor="@color/white"
-                app:autoFocusEnabled="false"
+                app:autoFocusEnabled="true"
                 app:passiveColor="@color/greyFinal"
                 app:textColor="@color/red"
                 app:textSize="20"
                 android:translationZ="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="7dp"/>
+            <requestFocus/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/resendTxt"

@@ -54,6 +54,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.userNameTxt.setText(model.getUserDetails().getName());
         holder.addressTxt.setText(model.getUserDetails().getAddress().getFullAddress());
         holder.statusTxt.setText(model.getOrderStatus());
+        holder.totalAmtTxt.setText("Total : ₹"+model.getTotalAmount());
 
         Glide.with(holder.itemView.getContext())
                 .load(model.getUserDetails().getImage())
@@ -93,7 +94,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         AppCompatTextView orderTxt, userNameTxt, addressTxt;
-        AppCompatTextView statusTxt, viewDetailsTxt;
+        AppCompatTextView statusTxt, viewDetailsTxt, totalAmtTxt;
         CircleImageView userImg;
 
         public ViewHolder(@NonNull View itemView) {
@@ -103,6 +104,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             addressTxt = itemView.findViewById(R.id.addressTxt);
             statusTxt = itemView.findViewById(R.id.statusTxt);
             viewDetailsTxt = itemView.findViewById(R.id.viewDetailsTxt);
+            totalAmtTxt = itemView.findViewById(R.id.totalAmtTxt);
             userImg = itemView.findViewById(R.id.userImg);
         }
     }

@@ -4,7 +4,7 @@ public class UserModel {
     public String name;
     public String mobile;
     public String email;
-    public String device_token;
+    public String deviceToken;
 
     public String getName() {
         return name;
@@ -30,11 +30,11 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getDevice_token() {
-        return device_token;
+    public String getDeviceToken() {
+        return deviceToken;
     }
 
-    public void setDevice_token(String device_token) {
-        this.device_token = device_token;
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 }

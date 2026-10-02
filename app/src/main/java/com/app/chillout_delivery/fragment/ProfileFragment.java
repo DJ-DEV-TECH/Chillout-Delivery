@@ -1,11 +1,10 @@
 package com.app.chillout_delivery.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.ColorStateList;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -19,6 +18,7 @@ import com.app.chillout_delivery.activity.LoginActivity;
 import com.app.chillout_delivery.activity.WebviewActivity;
 import com.app.chillout_delivery.base.BaseFragment;
 import com.app.chillout_delivery.databinding.FragmentProfileBinding;
+import com.app.chillout_delivery.utils.EventManager;
 import com.app.chillout_delivery.utils.PrefsHelper;
 
 public class ProfileFragment extends BaseFragment {
@@ -41,20 +41,31 @@ public class ProfileFragment extends BaseFragment {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(getLayoutInflater());
 
+        getOrderEvent();
+
         binding.nameTxt.setText(name);
         binding.fullNameTxt.setText(name);
         binding.profileMbleTxt.setText(mobile);
         binding.mbleNumberTxt.setText(mobile);
-        binding.statusTxt.setText((status == 0) ? "OFFLINE" : "ONLINE");
-        binding.statusTxt.setTextColor((status == 0) ? getActivity().getColor(R.color.red) : getActivity().getColor(R.color.green));
-        binding.onlineImg.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(),
+        if (status == 0 || status == 1) {
+            binding.statusLinear.setVisibility(VISIBLE);
+            binding.statusTxt.setText((status == 0) ? "OFFLINE" : "ONLINE");
+            binding.deliveryLottie.setVisibility(GONE);
+            binding.deliveryLottie.pauseAnimation();
+        } else {
+            binding.statusLinear.setVisibility(GONE);
+            binding.deliveryLottie.setVisibility(VISIBLE);
+            binding.deliveryLottie.playAnimation();
+        }
+        binding.statusTxt.setTextColor((status == 0) ? requireContext().getColor(R.color.red) : requireContext().getColor(R.color.green));
+        binding.onlineImg.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(),
                                 status == 0 ? R.color.red : R.color.green)));
         binding.emailTxt.setText(email);
 
         binding.logoutBtn.setOnClickListener(v -> {
             Intent i = new Intent(getActivity(), LoginActivity.class);
             startActivity(i);
-            requireActivity().finishAndRemoveTask();
+            requireActivity().finish();
             PrefsHelper.clearAll(getContext());
         });
 
@@ -64,38 +75,43 @@ public class ProfileFragment extends BaseFragment {
 
         binding.helpConstraint.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WebviewActivity.class);
-            intent.putExtra("url", "www.google.com");
+            intent.putExtra("url", "https://www.google.com");
             startActivity(intent);
         });
 
         binding.privacyConstraint.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WebviewActivity.class);
-            intent.putExtra("url", "www.google.com");
+            intent.putExtra("url", "https://www.google.com");
             startActivity(intent);
         });
 
         return binding.getRoot();
     }
 
-    private BroadcastReceiver statusReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Integer activeStatus = intent.getIntExtra("status", 0);
-            binding.statusTxt.setText((activeStatus == 0) ? "OFFLINE" : "ONLINE");
-            binding.statusTxt.setTextColor((activeStatus == 0) ? getActivity().getColor(R.color.red) : getActivity().getColor(R.color.green));
-            binding.onlineImg.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(),
-                    activeStatus == 0 ? R.color.red : R.color.green)));
-        }
-    };
+    private void getOrderEvent() {
+        EventManager.getInstance().getEvents().observe(getViewLifecycleOwner(), event -> {
+            if (event == null) return;
+            if (event.type.equals("USER_STATUS")) {
+                String activeStatus = event.status;
+                if (activeStatus.equals("0") || activeStatus.equals("1")) {
+                    binding.statusLinear.setVisibility(VISIBLE);
+                    binding.deliveryLottie.setVisibility(GONE);
+                    binding.statusTxt.setText(activeStatus.equalsIgnoreCase("0") ? "OFFLINE" : "ONLINE");
+                    binding.statusTxt.setTextColor(activeStatus.equalsIgnoreCase("0") ? requireContext().getColor(R.color.red) : requireContext().getColor(R.color.green));
+                    binding.onlineImg.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(),
+                            activeStatus.equalsIgnoreCase("0") ? R.color.red : R.color.green)));
+                    binding.deliveryLottie.pauseAnimation();
+                } else {
+                    binding.statusLinear.setVisibility(GONE);
+                    binding.deliveryLottie.setVisibility(VISIBLE);
+                    binding.deliveryLottie.playAnimation();
+                }
+            }
+        });
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-        IntentFilter filter = new IntentFilter(STATUS_EVENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getActivity().registerReceiver(statusReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-        } else {
-            getActivity().registerReceiver(statusReceiver, filter);
-        }
     }
 }

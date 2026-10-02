@@ -37,7 +37,7 @@ public class AuthInterceptor implements Interceptor {
         try {
             JSONObject json = new JSONObject(bodyString);
             System.out.println("Check_JK intercept json : "+json.toString());
-            if (json.has("code") && (json.getInt("code") == 401 || json.getInt("code") == 403)) {
+            if (json.has("code") && (json.getInt("code") == 401)) {
                 PrefsHelper.clearAll(context);
                 new Handler(Looper.getMainLooper()).post(() -> {
                     Intent intent = new Intent(context, LoginActivity.class);
